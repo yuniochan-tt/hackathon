@@ -1,0 +1,336 @@
+/* ==================================== */
+/* CSS 基本設定 (CSS Kihon Settei - 基本設定) */
+/* ==================================== */
+body {
+    /* Navbar固定化に伴い、コンテンツが隠れないよう上部に余白を追加 (Navbar固定に伴う調整) */
+    padding-top: 80px; 
+    
+    /* フォント設定: 日本語と欧文フォントの指定 */
+    font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+    /* 行の高さ */
+    line-height: 1.7;
+    /* 余白をリセット */
+    margin: 0;
+    padding-left: 0; 
+    padding-right: 0;
+    padding-bottom: 0;
+    /* 基本の文字色 */
+    color: #333333; 
+    /* 背景色 (ごく薄いグレー) */
+    background-color: #f7f7f7; 
+    /* アンカーリンクのスクロールを滑らかに */
+    scroll-behavior: smooth; 
+}
+
+a {
+    /* リンクの下線を削除 */
+    text-decoration: none;
+    /* 親要素から色を継承 */
+    color: inherit;
+}
+
+.container {
+    /* 幅: 画面幅の90% */
+    width: 90%;
+    /* 最大幅 */
+    max-width: 1200px;
+    /* 中央揃え */
+    margin: 0 auto; 
+    /* パディングをリセット */
+    padding: 0; 
+}
+
+/* ==================================== */
+/* ヘッダー (Header) */
+/* ==================================== */
+header{
+    background-image: url('https://www.japan-guide.com/g21/5702_01.jpg'); 
+    background-size: cover; 
+    background-position: center;
+    /* navbarの高さ分を考慮して調整 */
+    height: calc(60vh - 80px); 
+    min-height: 300px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+/* 背景を暗くするためのオーバーレイ */
+header::before {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: rgba(0, 0, 0, 0.3); 
+   z-index: 1;
+}
+
+.hero > div {
+    z-index: 2;
+    padding: 20px;
+}
+
+/* h1, h2, catch-copy を前面に */
+header h1, header h2, .catch-copy {
+    position: relative;
+    z-index: 2; 
+}
+
+header h1 {
+    font-size: 4.2em; 
+    margin-bottom: 8px;
+    letter-spacing: 6px;
+    color:white; 
+    text-shadow: 0 0 10px #FFD700, 0 0 5px rgba(0, 0, 0, 0.8); 
+    font-weight: 900;
+}
+
+header h2 {
+    font-size: 1.9em;
+    font-weight: 400; 
+    margin-top: 0;
+    color: #ffffff; 
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); 
+}
+
+.catch-copy {
+    font-size: 3em;
+    margin-top: 25px;
+    color: white; 
+    border-bottom: 3px solid #FFD700; 
+    display: inline-block;
+    padding-bottom: 8px;
+    font-style: italic;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); 
+}
+
+/* ==================================== */
+/* 言語切り替え (Lang Switcher) - (CSSに追記) */
+/* ==================================== */
+.lang-switcher {
+    text-align: center;
+    padding: 10px 0;
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 40px; 
+}
+.lang-switcher button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+.lang-switcher button:hover, .lang-switcher .active {
+    background-color: #36454F;
+    color: white;
+    border-color: #36454F;
+}
+
+
+/* ==================================== */
+/* ナビゲーションバー (Navbar) */
+/* 変更点: 上部固定、背景色を緑に変更 */
+/* ==================================== */
+.navbar {
+    /* Vị trí cố định, toàn chiều rộng, màu xanh lá cây */
+    position: fixed; 
+    top: 0; 
+    right: 0; 
+    left: 0; 
+    z-index: 1000; 
+    /* 背景色を緑に変更 */
+    background-color: #28a745; 
+    padding: 0; 
+    margin-bottom: 0; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .container {
+    /* 変更点: ロゴ(左)とナビゲーションリンク(右)を両端に配置 */
+    display: flex; 
+    justify-content: space-between; /* 両端揃え */
+    align-items: center;
+    padding: 15px 0; 
+}
+
+/* ------------------------------------ */
+/* CSS for ロゴ/ホームページリンク (左側) */
+/* ------------------------------------ */
+.navbar .home-logo {
+    color: white; 
+    font-size: 1.5em; /* 目立つサイズ */
+    font-weight: 900; /* 強調 */
+    text-decoration: none;
+    /* containerの左端に合わせる */
+    padding: 0; 
+    margin: 0;
+    transition: color 0.3s;
+    /* ロゴの視認性向上のためのシャドウ */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); 
+}
+
+.navbar .home-logo:hover {
+    color: #ffc107; /* ホバー時に黄色に */
+}
+
+
+/* ------------------------------------ */
+/* CSS for ナビゲーションリンク (右側) */
+/* ------------------------------------ */
+.navbar .nav-links {
+    /* リンクを横並びにする */
+    display: flex; 
+    align-items: center;
+}
+
+.navbar .nav-links a {
+    color: #fff; 
+    text-decoration: none;
+    /* 右寄せのため、リンク間のマージンを左側で設定 */
+    margin-right: 0; 
+    margin-left: 30px; 
+    padding: 10px 0; 
+    font-weight: bold;
+    font-size: 1.05em;
+    transition: color 0.3s;
+}
+
+.navbar .nav-links a:hover {
+    color: #ffc107; /* ホバー時に黄色に */
+    background-color: transparent; 
+}
+
+/* ==================================== */
+/* セクションとコンテンツ (Section & Content) */
+/* ==================================== */
+section {
+    background-color: #ffffff;
+    padding: 60px 80px; 
+    margin-bottom: 50px;
+    border-radius: 12px; 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); 
+}
+
+section h3 {
+    font-size: 2.6em;
+    color: #1a1a1a;
+    border-left: 10px solid #FFD700; 
+    padding-left: 20px;
+    margin-bottom: 35px;
+    font-weight: 700;
+}
+
+section h4 {
+    font-size: 1.8em;
+    color: #333333;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    font-weight: 600;
+}
+
+/* ==================================== */
+/* 画像ギャラリー (Image Gallery) */
+/* ==================================== */
+.image-gallery {
+    display: flex;
+    gap: 30px; 
+    margin-bottom: 40px;
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+}
+
+.castle-img {
+    flex: 1 1 calc(33.33% - 20px); 
+    min-width: 250px; 
+    height: 250px; 
+    object-fit: cover;
+    border-radius: 15px; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); 
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s; 
+    filter: brightness(1.05) saturate(1.1); 
+    cursor: pointer;
+    
+    background-color: #eeeeee; 
+    border: 4px dashed #cccccc; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    color: #777;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#img-towers { background-image: url('image_25d148.png'); background-size: cover; border: none; font-size: 0;}
+#img-gate { background-image: url('image_25d180.png'); background-size: cover; border: none; font-size: 0;}
+#img-lightup { background-image: url('image_25d200.png'); background-size: cover; border: none; font-size: 0;}
+
+
+.castle-img:hover {
+    transform: translateY(-8px) scale(1.03); 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================================== */
+/* ご利用案内テーブル (Info Table) */
+/* ==================================== */
+.info-table {
+    width: 100%;
+    border-collapse: separate; 
+    border-spacing: 0 12px; 
+    margin-top: 30px;
+    font-size: 1.05em;
+}
+
+.info-table th, .info-table td {
+    padding: 20px 30px;
+    text-align: left;
+    border: none;
+}
+
+.info-table th {
+    background-color: #fffde7; 
+    width: 35%;
+    font-weight: 700;
+    color: #1a1a1a;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: 1px solid #ffecb3; 
+    border-right: none;
+}
+
+.info-table td {
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: 1px solid #f0f0f0;
+    border-left: none;
+}
+
+/* ==================================== */
+/* フッター (Footer) */
+/* ==================================== */
+footer {
+    text-align: center;
+    padding: 30px 0;
+    background-color: #1a1a1a; 
+    color: #b0b0b0;
+    margin-top: 60px;
+    font-size: 0.95em;
+    border-top: 3px solid #FFD700; 
+}
