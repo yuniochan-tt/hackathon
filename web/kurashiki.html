@@ -30,18 +30,22 @@
     <li class="nav-item"><a class="nav-link" href="#map" data-key="nav_map">倉敷美観地区マップ</a></li>
   </ul>
 
-  <div class="language-selector" id="languageSelector">
-    <button class="lang-button" onclick="toggleDropdown()" data-key="lang_button">
-      日本語 (JA) <i class="fas fa-caret-down"></i>
-    </button>
-    
-    <div class="dropdown-content">
-      <a href="#" data-lang="ja">日本語 (JA)</a>
-      <a href="#" data-lang="vi">Tiếng Việt (VI)</a>
-      <a href="#" data-lang="ne">नेपाली (NE)</a>
-      <a href="#" data-lang="ko">한국어 (KO)</a>
-    </div>
-  </div>
+ <!-- Language Switcher (Bootstrap dropdown) -->
+<ul class="navbar-nav ms-3">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      🌐 日本語 (JA)
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+      <li><a class="dropdown-item" href="kurashiki-ja.html">日本語 (JA)</a></li>
+      <li><a class="dropdown-item" href="kurashiki-vi.html">Tiếng Việt (VI)</a></li>
+      <li><a class="dropdown-item" href="kurashiki-en.html">English (EN)</a></li>
+      <li><a class="dropdown-item" href="kurashiki-ko.html">한국어 (KO)</a></li>
+      <li><a class="dropdown-item" href="kurashiki-ne.html">नेपाली (NE)</a></li>
+    </ul>
+  </li>
+</ul>
+
   </div>
     </nav>
     
