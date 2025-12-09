@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>岡山エコツーリズム | 自然と歴史を楽しむ旅</title>
     <link rel="stylesheet" href="../css/y.hakathon.css" />
-      </head>
+  </head>
 
   <body>
     <header>
@@ -19,7 +19,7 @@
       <button onclick="setLang('zh')">🇨🇳 中文</button>
       <button onclick="setLang('ko')">🇰🇷 한국어</button>
       <button onclick="setLang('fr')">🇫🇷 Français</button>
-    </div>
+      <button onclick="setLang('ne')">🇳🇵 नेपाली</button>     </div>
 
     <main class="content">
       <section id="intro"></section>
@@ -42,65 +42,150 @@
  
     <script>
       let currentLang = 'ja';
-      // Dữ liệu chung cho các phần tử (Ví dụ: liên kết video YouTube)
       const commonData = {
-        youtubeVideo: 'https://www.youtube.com/embed/5U10S4cWzE8?si=I8b8s-3j6vYx-Y_w', // Ví dụ video về Kurashiki
-        stampImageUrl: 'https://img2.lancers.jp/proposal/13267190/509/b5b7f20e44df1c1ba67e92b52a339e39855d3008451e1d8f3a45cbd3bea2f921/18798291_300_0.jpg?20190515090200' // Ảnh con dấu
+        youtubeVideo: 'https://www.youtube.com/embed/5U10S4cWzE8?si=I8b8s-3j6vYx-Y_w',
+        stampImageUrl: 'https://img2.lancers.jp/proposal/13267190/509/b5b7f20e44df1c1ba67e92b52a339e39855d3008451e1d8f3a45cbd3bea2f921/18798291_300_0.jpg?20190515090200'
       };
+
+      // Dữ liệu mẫu cho 10 ảnh trong gallery
+      const imageGalleryData = [
+          { id: 105, title_vi: "Dòng Kênh Thanh Bình", feedback_vi: "Buổi sáng đi thuyền trên sông thật sự là liệu pháp tinh thần. Cảm giác như xuyên không về thời Edo!", title_ja: "穏やかな運河の流れ", feedback_ja: "朝の舟乗りは本当に心の癒しになりました。江戸時代にタイムスリップした気分！", title_en: "Serene Canal Flow", feedback_en: "The morning boat ride was truly a spiritual therapy. Felt like I traveled back to the Edo period!", title_zh: "宁静的运河之流", feedback_zh: "早上的游船之旅真是精神疗法。感觉像穿越回了江户时代！", title_ko: "평화로운 운하의 흐름", feedback_ko: "아침 뱃놀이는 정말 정신적인 치료가 되었어요. 에도 시대로 시간 여행 온 기분!", title_fr: "Le Flux Serein du Canal", feedback_fr: "La promenade en bateau le matin a été une véritable thérapie spirituelle. On se croirait revenu à l'époque d'Edo !", title_ne: "शान्त नहरको बहाव", feedback_ne: "बिहानको डुङ्गा यात्रा साँच्चै आत्मिक उपचार थियो। मलाई इडो अवधिको समयमा फर्केको महसुस भयो!" },
+          { id: 175, title_vi: "Kiến Trúc Tường Trắng", feedback_vi: "Mỗi góc phố đều là một bức ảnh. Yêu thích sự kết hợp giữa kiến trúc cổ và cây xanh.", title_ja: "白壁の建築美", feedback_ja: "どこを切り取っても絵になる場所。古い建築と緑の組み合わせが最高でした。", title_en: "White-Walled Architecture", feedback_en: "Every corner is a photo opportunity. Loved the combination of ancient architecture and greenery.", title_zh: "白墙建筑之美", feedback_zh: "每个角落都适合拍照。我喜欢古老建筑和绿色植物的结合。", title_ko: "흰 벽 건축의 미학", feedback_ko: "어디를 찍어도 그림이 되는 곳. 고대 건축과 녹색의 조화가 최고였습니다.", title_fr: "Architecture aux Murs Blancs", feedback_fr: "Chaque coin est une occasion de photo. J'ai adoré la combinaison de l'architecture ancienne et de la verdure.", title_ne: "सेतो पर्खालको वास्तुकला", feedback_ne: "हरेक कुना फोटो खिच्न लायक छ। पुरानो वास्तुकला र हरियालीको संयोजन मन पर्यो।" },
+          { id: 214, title_vi: "Trải Nghiệm Xe Kéo", feedback_vi: "Người lái xe kéo kể chuyện rất hay về lịch sử bảo tồn thiên nhiên ở đây. Rất đáng tiền!", title_ja: "人力車体験", feedback_ja: "俥夫さんが語るこの地の歴史や自然保護の話がとても興味深かった。乗る価値あり！", title_en: "Rickshaw Experience", feedback_en: "The rickshaw driver told great stories about the history of nature preservation here. Well worth the ride!", title_zh: "人力车体验", feedback_zh: "车夫讲述的当地历史和自然保护故事非常棒。非常值得一坐！", title_ko: "인력거 체험", feedback_ko: "인력거꾼이 들려주는 이 지역의 역사와 자연 보존 이야기가 정말 흥미로웠어요. 탈 가치가 있습니다!", title_fr: "Expérience en Pousse-Pousse", feedback_fr: "Le conducteur de pousse-pousse a raconté de belles histoires sur l'histoire de la préservation de la nature ici. Cela vaut le détour !", title_ne: "रिक्शा अनुभव", feedback_ne: "रिक्शा चालकले यहाँको प्रकृति संरक्षणको इतिहासबारे राम्रो कथा सुनाए। यात्राको लागि धेरै मूल्यवान!" },
+          { id: 1011, title_vi: "Góc Quán Cà Phê Cổ", feedback_vi: "Nơi hoàn hảo để thưởng thức cà phê và ngắm nhìn phố cổ yên tĩnh.", title_ja: "古いカフェの片隅", feedback_ja: "静かな街並みを眺めながらコーヒーを楽しむのに最適な場所です。", title_en: "Corner of the Old Cafe", feedback_en: "The perfect place to enjoy coffee and watch the quiet old town.", title_zh: "古老咖啡馆的一角", feedback_zh: "享用咖啡和欣赏宁静古镇的完美场所。", title_ko: "오래된 카페의 구석", feedback_ko: "조용한 옛 거리를 바라보며 커피를 즐기기에 완벽한 장소입니다.", title_fr: "Coin du Vieux Café", feedback_fr: "L'endroit idéal pour déguster un café et observer la vieille ville tranquille.", title_ne: "पुरानो क्याफेको कुना", feedback_ne: "कफीको मजा लिने र शान्त पुरानो शहर हेर्ने उत्तम ठाउँ।" },
+          { id: 1039, title_vi: "Cầu Gỗ Duyên Dáng", feedback_vi: "Cây cầu nhỏ xinh xắn là điểm check-in tuyệt vời.", title_ja: "趣のある木橋", feedback_ja: "かわいらしい小さな橋は、最高のフォトスポットです。", title_en: "Charming Wooden Bridge", feedback_en: "The lovely small bridge is a great photo spot.", title_zh: "迷人的木桥", feedback_zh: "可爱的小桥是绝佳的拍照地点。", title_ko: "매력적인 나무 다리", feedback_ko: "사랑스러운 작은 다리는 멋진 포토 स्팟입니다.", title_fr: "Pont en Bois Charmant", feedback_fr: "Le joli petit pont est un excellent endroit pour prendre des photos.", title_ne: "आकर्षक काठको पुल", feedback_ne: "मनमोहक सानो पुल तस्विर खिच्नको लागि राम्रो ठाउँ हो।" },
+          { id: 1083, title_vi: "Nghệ Thuật Cận Cảnh", feedback_vi: "Bảo tàng Ohara là một điểm cộng lớn. Nơi lưu giữ nghệ thuật phương Tây chất lượng.", title_ja: "クローズアップアート", feedback_ja: "大原美術館は大きな魅力。質の高い西洋美術が所蔵されています。", title_en: "Close-up Art", feedback_en: "The Ohara Museum is a big plus. It houses high-quality Western art.", title_zh: "特写艺术", feedback_zh: "大原美术馆是一大亮点。它收藏着高质量的西方艺术品。", title_ko: "클로즈업 아트", feedback_ko: "오하라 미술관은 큰 장점입니다. 고품질의 서양 미술을 소장하고 있습니다.", title_fr: "Art en Gros Plan", feedback_fr: "Le musée Ohara est un grand avantage. Il abrite des œuvres d'art occidental de haute qualité.", title_ne: "नजिकबाट कला", feedback_ne: "ओहारा संग्रहालय एक ठूलो थप हो। यसले उच्च गुणस्तरको पश्चिमी कला राख्छ।" },
+          { id: 48, title_vi: "Món Ngọt Địa Phương", feedback_vi: "Bánh kẹo truyền thống Kurashiki rất ngon và đẹp mắt.", title_ja: "地元のお菓子", feedback_ja: "倉敷の伝統的なお菓子は美味しくて見た目もきれいです。", title_en: "Local Sweets", feedback_en: "Kurashiki's traditional sweets are delicious and beautiful.", title_zh: "当地点心", feedback_zh: "仓敷的传统点心美味又漂亮。", title_ko: "지역 과자", feedback_ko: "쿠라시키의 전통 과자는 맛있고 보기에도 좋습니다.", title_fr: "Douceurs Locales", feedback_fr: "Les douceurs traditionnelles de Kurashiki sont délicieuses et belles.", title_ne: "स्थानीय मिठाईहरू", feedback_ne: "कुराशिकीका परम्परागत मिठाईहरू स्वादिष्ट र सुन्दर छन्।" },
+          { id: 1073, title_vi: "Bóng Dáng Tường Gạch", feedback_vi: "Sự kết hợp giữa tường gạch và cây xanh tạo nên khung cảnh thơ mộng.", title_ja: "レンガ塀の影", feedback_ja: "レンガ塀と緑の組み合わせが詩的な風景を作り出しています。", title_en: "Shadow of the Brick Wall", feedback_en: "The combination of brick walls and greenery creates a poetic scene.", title_zh: "砖墙的影子", feedback_zh: "砖墙和绿色植物的结合营造出诗意的场景。", title_ko: "벽돌 담장의 그림자", feedback_ko: "벽돌 담장과 녹색의 조화가 시적인 풍경을 만들어냅니다.", title_fr: "Ombre du Mur de Briques", feedback_fr: "La combinaison des murs de briques et de la verdure crée une scène poétique.", title_ne: "ईंटको पर्खालको छाया", feedback_ne: "ईंटको पर्खाल र हरियालीको संयोजनले एक काव्यमय दृश्य सिर्जना गर्छ।" },
+          { id: 1047, title_vi: "Tàu Thuyền Truyền Thống", feedback_vi: "Nhìn thấy chiếc thuyền lịch sử đi qua kênh đào là một trải nghiệm độc đáo.", title_ja: "伝統的な舟", feedback_ja: "歴史的な舟が運河を通るのを見るのはユニークな体験です。", title_en: "Traditional Boat", feedback_en: "Seeing the historical boat pass through the canal is a unique experience.", title_zh: "传统船只", feedback_zh: "看到历史悠久的船只穿过运河是一种独特的体验。", title_ko: "전통 배", feedback_ko: "역사적인 배가 운하를 지나는 것을 보는 것은 독특한 경험입니다.", title_fr: "Bateau Traditionnel", feedback_fr: "Voir le bateau historique traverser le canal est une expérience unique.", title_ne: "परम्परागत डुङ्गा", feedback_ne: "ऐतिहासिक डुङ्गा नहर पार गरेको देख्नु एक अद्वितीय अनुभव हो।" },
+          { id: 1060, title_vi: "Buổi Chiều Tà Yên Ả", feedback_vi: "Hoàng hôn buông xuống khu phố cổ thật sự bình yên.", title_ja: "穏やかな夕暮れ", feedback_ja: "古い街並みに夕日が沈む光景は本当に穏やかです。", title_en: "Quiet Twilight", feedback_en: "The sunset over the old town is truly peaceful.", title_zh: "宁静的黄昏", feedback_zh: "古镇的日落是真正的宁静。", title_ko: "고요한 황혼", feedback_ko: "옛 거리에 해가 지는 모습은 정말 평화롭습니다.", title_fr: "Crépuscule Tranquille", feedback_fr: "Le coucher de soleil sur la vieille ville est vraiment paisible.", title_ne: "शान्त साँझ", feedback_ne: "पुरानो शहरमा सूर्यास्त साँच्चै शान्त हुन्छ।" }
+      ];
+
+      function getLocalizedData(item, type, lang) {
+          switch (lang) {
+              case 'vi': return item[`${type}_vi`];
+              case 'ja': return item[`${type}_ja`];
+              case 'en': return item[`${type}_en`];
+              case 'zh': return item[`${type}_zh`];
+              case 'ko': return item[`${type}_ko`];
+              case 'fr': return item[`${type}_fr`];
+              case 'ne': return item[`${type}_ne`]; // Thêm Nepali
+              default: return '';
+          }
+      }
+
+      function generateImageGallery(lang) {
+          return imageGalleryData.map(item => `
+              <div class="image-card">
+                  <img src="https://picsum.photos/id/${item.id}/300/200" alt="${getLocalizedData(item, 'title', lang)}" />
+                  <h4>${getLocalizedData(item, 'title', lang)}</h4>
+                  <p class="feedback">"${getLocalizedData(item, 'feedback', lang)}"</p>
+              </div>
+          `).join('');
+      }
+
+      function generateComments(lang) {
+          const comments = {
+              vi: [
+                  { date: "2 ngày trước", author: "Nguyễn Văn A", text: "Khu vực này thực sự thanh bình. Tôi đã chụp được rất nhiều ảnh đẹp và mua được vải Kurashiki rất chất lượng." },
+                  { date: "1 tuần trước", author: "Traveler_B", text: "Rất phù hợp cho chuyến đi 1 ngày. Đừng quên ghé thăm bảo tàng Ohara. Đồ ngọt địa phương cũng rất ngon!" },
+                  { date: "3 ngày trước", author: "Thùy Linh", text: "Tôi yêu kiến trúc truyền thống ở đây! Cảm giác như lạc vào một thế giới khác." },
+                  { date: "1 tháng trước", author: "Minh Khoa", text: "Trải nghiệm đi thuyền trên kênh đào là điều bắt buộc phải làm. Rất lãng mạn!" },
+                  { date: "5 ngày trước", author: "Mai Phương", text: "Người dân địa phương rất thân thiện và nhiệt tình. Chắc chắn sẽ quay lại!" }
+              ],
+              ja: [
+                  { date: "2日前", author: "佐藤 A", text: "本当に平和で美しいエリアです。素敵な写真がたくさん撮れたし、倉敷帆布も買えて大満足。" },
+                  { date: "1週間前", author: "旅人 B", text: "日帰り旅行に最適。大原美術館も忘れずに。地元のスイーツも絶品でした！" },
+                  { date: "3日前", author: "田中 美紀", text: "ここの伝統的な建築が大好きです！まるで別世界に迷い込んだような気分。" },
+                  { date: "1ヶ月前", author: "山本 健太", text: "運河での舟乗り体験は絶対にやるべきです。とてもロマンチック！" },
+                  { date: "5日前", author: "小林 彩", text: "地元の人たちはとてもフレンドリーで親切でした。間違いなくまた訪れます！" }
+              ],
+              en: [
+                  { date: "2 days ago", author: "John Doe", text: "This area is genuinely peaceful. I took so many great photos and bought some really high-quality Kurashiki canvas." },
+                  { date: "1 week ago", author: "Traveler_B", text: "Perfect for a day trip. Don't forget to visit the Ohara Museum. The local sweets were delicious too!" },
+                  { date: "3 days ago", author: "Jane Smith", text: "I love the traditional architecture here! It feels like stepping into another world." },
+                  { date: "1 month ago", author: "David Lee", text: "The canal boat ride experience is a must-do. Very romantic!" },
+                  { date: "5 days ago", author: "Emily Brown", text: "The locals were very friendly and helpful. Will definitely return!" }
+              ],
+              zh: [
+                  { date: "2天前", author: "王 小明", text: "这个地区真的很和平。我拍了很多很棒的照片，还买了质量很好的仓敷帆布。" },
+                  { date: "1周前", author: "旅行者 B", text: "非常适合一日游。别忘了去参观大原美术馆。当地的甜点也很美味！" },
+                  { date: "3天前", author: "李 芳", text: "我喜欢这里的传统建筑！感觉就像踏入了另一个世界。" },
+                  { date: "1个月前", author: "陈 刚", text: "运河游船体验是必做的项目。非常浪漫！" },
+                  { date: "5天前", author: "张 莉", text: "当地人非常友好和热情。我一定会再来的！" }
+              ],
+              ko: [
+                  { date: "2일 전", author: "김 철수", text: "이 지역은 정말 평화로워요. 멋진 사진을 많이 찍었고, 퀄리티 좋은 쿠라시키 캔버스도 샀습니다." },
+                  { date: "1주 전", author: "Traveler_B", text: "당일치기 여행에 완벽합니다. 오하라 미술관 방문을 잊지 마세요. 지역 디저트도 정말 맛있었어요!" },
+                  { date: "3일 전", author: "박지수", text: "저는 여기 전통 건축물이 좋아요! 다른 세계에 온 것 같은 기분입니다." },
+                  { date: "1개월 전", author: "이준호", text: "운하에서의 뱃놀이 체험은 꼭 해야 할 일입니다. 정말 낭만적이에요!" },
+                  { date: "5일 전", author: "최유미", text: "현지인들은 매우 친절하고 도움이 되었습니다. 꼭 다시 방문할 거예요!" }
+              ],
+              fr: [
+                  { date: "Il y a 2 jours", author: "Pierre D.", text: "Cette zone est vraiment paisible. J'ai pris de superbes photos et acheté de la toile de Kurashiki de très bonne qualité." },
+                  { date: "Il y a 1 semaine", author: "Voyageur_B", text: "Parfait pour une excursion d'une journée. N'oubliez pas de visiter le Musée Ohara. Les douceurs locales étaient délicieuses aussi !" },
+                  { date: "Il y a 3 jours", author: "Sophie L.", text: "J'adore l'architecture traditionnelle ici ! On a l'impression d'entrer dans un autre monde." },
+                  { date: "Il y a 1 mois", author: "Marc C.", text: "La promenade en bateau sur le canal est une activité incontournable. Très romantique !" },
+                  { date: "Il y a 5 jours", author: "Élise R.", text: "Les habitants locaux étaient très sympathiques et serviables. Je reviendrai certainement !" }
+              ],
+              ne: [ // Dữ liệu Nepali mới
+                  { date: "2 दिन अघि", author: "राम बहादुर", text: "यो क्षेत्र साँच्चै शान्तिमय छ। मैले धेरै सुन्दर तस्बिरहरू लिएँ र धेरै उच्च-गुणस्तरको कुराशिकी क्यानभास किनेँ।" },
+                  { date: "1 हप्ता अघि", author: "यात्री_B", text: "एक दिनको यात्राको लागि उत्तम। ओहारा संग्रहालय भ्रमण गर्न नबिर्सनुहोस्। स्थानीय मिठाईहरू पनि धेरै स्वादिष्ट थिए!" },
+                  { date: "3 दिन अघि", author: "सीता देवी", text: "मलाई यहाँको परम्परागत वास्तुकला मन पर्यो! यो अर्को संसारमा प्रवेश गरेजस्तो लाग्यो।" },
+                  { date: "1 महिना अघि", author: "श्याम कुमार", text: "नहरमा डुङ्गा यात्राको अनुभव एक अनिवार्य कार्य हो। धेरै रोमान्टिक!" },
+                  { date: "5 दिन अघि", author: "पार्वती थापा", text: "स्थानीयहरू धेरै मिलनसार र सहयोगी थिए। निश्चित रूपमा फर्कनेछु!" }
+              ]
+          };
+
+          const data = comments[lang];
+          const header = {
+              vi: 'Bình Luận Từ Cộng Đồng',
+              ja: 'コミュニティからのコメント',
+              en: 'Community Comments',
+              zh: '社区评论',
+              ko: '커뮤니티 댓글',
+              fr: 'Commentaires de la Communauté',
+              ne: 'समुदायबाट टिप्पणीहरू' // Tiêu đề Nepali
+          };
+
+          return `
+              <h3>💬 ${header[lang]} (5 ${lang === 'ne' ? 'नमुनाहरू' : lang === 'vi' ? 'Ví dụ' : lang === 'ja' ? '件' : 'Samples'})</h3>
+              <div class="comments-section">
+                  ${data.map(comment => `
+                      <div class="comment">
+                          <span class="comment-date">${comment.date}</span>
+                          <p class="comment-author">${comment.author}</p>
+                          <p>${comment.text}</p>
+                      </div>
+                  `).join('')}
+              </div>
+          `;
+      }
 
       const content = {
         vi: {
           title: "Cuộc Phiêu Lưu Sinh Thái Momotaro - Khu Phố Cổ Kurashiki Bikan",
           intro: `<h2>Khu Phố Cổ Kurashiki Bikan</h2>
                   <p>Tuyệt vời! Hãy cảm nhận vẻ đẹp của khu phố cổ Kurashiki Bikan và thể hiện lòng dũng cảm của Momotaro.
-                    Khám phá những con phố truyền thống và kênh đào xinh đẹp, xem bạn có thể trở thành một anh hùng sinh thái thực thụ hay không.</p>`,
+                    Khám phá những con phố truyền thống và kênh đào xinh đẹp, và xem bạn có thể trở thành một anh hùng sinh thái thực thụ hay không。</p>`,
           activities: `<h2>🎌 Trải nghiệm tại Khu Phố Cổ Kurashiki Bikan:</h2>
                       <ul>
                         <li>Tản bộ qua những con phố tường trắng truyền thống.</li>
                         <li>Đi thuyền trên kênh đào lịch sử.</li>
                         <li>Thưởng thức các món bánh kẹo địa phương trong khi ngắm nhìn con kênh tuyệt đẹp.</li>
                       </ul>`,
-          // PHẦN MỚI: TRẢI NGHIỆM THỰC TẾ
           real_experience: `
               <h2>🎬 Cảm Nhận Trải Nghiệm Thực Tế</h2>
               <div class="video-container">
                   <iframe src="${commonData.youtubeVideo}" title="YouTube video player - Kurashiki Bikan" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
 
-              <h3>✨ Khoảnh Khắc Của Du Khách</h3>
+              <h3>✨ Khoảnh Khắc Của Du Khách (10 Ảnh)</h3>
               <div class="image-gallery">
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/105/300/200" alt="Ảnh 1" />
-                      <h4>Dòng Kênh Thanh Bình</h4>
-                      <p class="feedback">"Buổi sáng đi thuyền trên sông thật sự là liệu pháp tinh thần. Cảm giác như xuyên không về thời Edo!" - <span style="font-weight: bold;">Anh Tùng</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/175/300/200" alt="Ảnh 2" />
-                      <h4>Kiến Trúc Tường Trắng</h4>
-                      <p class="feedback">"Mỗi góc phố đều là một bức ảnh. Yêu thích sự kết hợp giữa kiến trúc cổ và cây xanh." - <span style="font-weight: bold;">Chị Mai</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/214/300/200" alt="Ảnh 3" />
-                      <h4>Trải Nghiệm Xe Kéo</h4>
-                      <p class="feedback">"Người lái xe kéo kể chuyện rất hay về lịch sử bảo tồn thiên nhiên ở đây. Rất đáng tiền!" - <span style="font-weight: bold;">Báo Du lịch VN</span></p>
-                  </div>
+                  ${generateImageGallery('vi')}
               </div>
-
-              <h3>💬 Bình Luận Từ Cộng Đồng</h3>
-              <div class="comments-section">
-                  <div class="comment">
-                      <span class="comment-date">2 ngày trước</span>
-                      <p class="comment-author">Nguyễn Văn A</p>
-                      <p>Khu vực này thực sự thanh bình. Tôi đã chụp được rất nhiều ảnh đẹp và mua được vải Kurashiki rất chất lượng.</p>
-                  </div>
-                  <div class="comment">
-                      <span class="comment-date">1 tuần trước</span>
-                      <p class="comment-author">Traveler_B</p>
-                      <p>Rất phù hợp cho chuyến đi 1 ngày. Đừng quên ghé thăm bảo tàng Ohara. Đồ ngọt địa phương cũng rất ngon!</p>
-                  </div>
-              </div>
+              ${generateComments('vi')}
           `,
-          // KẾT THÚC PHẦN MỚI
           mission: `<strong>🌱 Nhiệm vụ Cuối Cùng:</strong> Tại khu phố cổ Kurashiki Bikan, hãy chụp ảnh hoặc quay video thể hiện “trái tim dũng cảm” của bạn.
                     Đăng lên mạng xã hội với các hashtag <code>#MomotarouEcoHero</code> và <code>#KurashikiBikanSpirit</code>,
                     sau đó nhấn nút bên dưới để nhận con dấu cuối cùng!`,
@@ -108,9 +193,9 @@
           stampMessage: "🎉 Chúc mừng! Bạn đã nhận được con dấu cuối cùng từ Khu Phố Cổ Kurashiki Bikan!",
           stampSuccess: "🌟 Bạn chính thức trở thành Anh Hùng Sinh Thái Momotaro!",
           closing: `<h2>🏆 Hành trình của bạn đã hoàn thành!</h2>
-                    <p>Bạn đã hoàn thành cuộc phiêu lưu anh hùng sinh thái và đến được khu phố cổ Kurashiki Bikan tuyệt đẹp, nơi có thiên nhiên và lịch sử hòa quyện.</p>
+                    <p>Bạn đã hoàn thành cuộc phiêu lưu anh hùng sinh thái và đến được khu phố cổ Kurashiki Bikan tuyệt đẹp, nơi có thiên nhiên và lịch sử hòa quyện。</p>
                     <p>📸 Hãy tiếp tục lan tỏa thông điệp bảo vệ môi trường bằng cách sử dụng hashtag <code>#MomotarouEcoHero</code>!</p>
-                    <p>🍑 Tinh thần của quả đào sẽ luôn ở bên bạn. Cảm ơn bạn đã tham gia cuộc phiêu lưu tại Okayama — vùng đất của huyền thoại và hành động xanh.</p>`,
+                    <p>🍑 Tinh thần của quả đào sẽ luôn ở bên bạn. Cảm ơn bạn đã tham gia cuộc phiêu lưu tại Okayama — vùng đất của huyền thoại và hành động xanh。</p>`,
           complete_journey: "Hoàn Thành Cuộc Phiêu Lưu"
         },
         ja: {
@@ -124,47 +209,18 @@
                         <li>歴史ある運河で船に乗りましょう。</li>
                         <li>きれいな運河を見ながら、地元のお菓子を楽しみましょう。</li>
                       </ul>`,
-          // PHẦN MỚI: TRẢI NGHIỆM THỰC TẾ
           real_experience: `
               <h2>🎬 リアルな体験を感じる</h2>
               <div class="video-container">
                   <iframe src="${commonData.youtubeVideo}" title="YouTube video player - 倉敷美観地区" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
 
-              <h3>✨ 旅行者のハイライト</h3>
+              <h3>✨ 旅行者のハイライト (10枚の写真)</h3>
               <div class="image-gallery">
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/105/300/200" alt="写真 1" />
-                      <h4>穏やかな運河の流れ</h4>
-                      <p class="feedback">"朝の舟乗りは本当に心の癒しになりました。江戸時代にタイムスリップした気分！" - <span style="font-weight: bold;">Tungさん</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/175/300/200" alt="写真 2" />
-                      <h4>白壁の建築美</h4>
-                      <p class="feedback">"どこを切り取っても絵になる場所。古い建築と緑の組み合わせが最高でした。" - <span style="font-weight: bold;">Maiさん</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/214/300/200" alt="写真 3" />
-                      <h4>人力車体験</h4>
-                      <p class="feedback">"俥夫さんが語るこの地の歴史や自然保護の話がとても興味深かった。乗る価値あり！" - <span style="font-weight: bold;">日本の旅行雑誌より</span></p>
-                  </div>
+                  ${generateImageGallery('ja')}
               </div>
-
-              <h3>💬 コミュニティからのコメント</h3>
-              <div class="comments-section">
-                  <div class="comment">
-                      <span class="comment-date">2日前</span>
-                      <p class="comment-author">佐藤 A</p>
-                      <p>本当に平和で美しいエリアです。素敵な写真がたくさん撮れたし、倉敷帆布も買えて大満足。</p>
-                  </div>
-                  <div class="comment">
-                      <span class="comment-date">1週間前</span>
-                      <p class="comment-author">旅人 B</p>
-                      <p>日帰り旅行に最適。大原美術館も忘れずに。地元のスイーツも絶品でした！</p>
-                  </div>
-              </div>
+              ${generateComments('ja')}
           `,
-          // KẾT THÚC PHẦN MỚI
           mission: `<strong>🌱 最終ミッション：</strong> 倉敷美観地区で「勇気のこころ」を表す写真や動画を撮りましょう。
                       SNSに <code>#MomotarouEcoHero</code> と <code>#KurashikiBikanSpirit</code> のハッシュタグをつけて投稿し、
                       下のボタンをクリックして最後のスタンプをゲット！`,
@@ -181,55 +237,25 @@
           title: "Momotaro Eco Adventure - Kurashiki Bikan Historical Quarter",
           intro: `<h2>Kurashiki Bikan District</h2>
                   <p>Wonderful! Feel the charm of Kurashiki Bikan District while showing Momotaro's courage.
-                    Explore the traditional streets and beautiful canals, and see if you can become a true eco-hero.</p>
-`,
+                    Explore the traditional streets and beautiful canals, and see if you can become a true eco-hero.</p>`,
           activities: `<h2>🎌 Experiences in the Kurashiki Bikan District:</h2>
                       <ul>
                         <li>Take a stroll through the traditional white-walled streets.</li>
                         <li>Take a boat ride on the historical canal.</li>
                         <li>Enjoy local sweets while admiring the beautiful canal.</li>
                       </ul>`,
-          // PHẦN MỚI: TRẢI NGHIỆM THỰC TẾ
           real_experience: `
-              <h2>🎬 Get a Feel for the Real Experience</h2>
+              <h2>🎬 Get a Feel for the Real Experience                      </h2>
               <div class="video-container">
                   <iframe src="${commonData.youtubeVideo}" title="YouTube video player - Kurashiki Bikan" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
 
-              <h3>✨ Traveler Highlights</h3>
+              <h3>✨ Traveler Highlights (10 Photos)</h3>
               <div class="image-gallery">
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/105/300/200" alt="Photo 1" />
-                      <h4>Serene Canal Flow</h4>
-                      <p class="feedback">"The morning boat ride was truly a spiritual therapy. Felt like I traveled back to the Edo period!" - <span style="font-weight: bold;">Tung A.</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/175/300/200" alt="Photo 2" />
-                      <h4>White-Walled Architecture</h4>
-                      <p class="feedback">"Every corner is a photo opportunity. Loved the combination of ancient architecture and greenery." - <span style="font-weight: bold;">Mai N.</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/214/300/200" alt="Photo 3" />
-                      <h4>Rickshaw Experience</h4>
-                      <p class="feedback">"The rickshaw driver told great stories about the history of nature preservation here. Well worth the ride!" - <span style="font-weight: bold;">Japan Travel Magazine</span></p>
-                  </div>
+                  ${generateImageGallery('en')}
               </div>
-
-              <h3>💬 Community Comments</h3>
-              <div class="comments-section">
-                  <div class="comment">
-                      <span class="comment-date">2 days ago</span>
-                      <p class="comment-author">John Doe</p>
-                      <p>This area is genuinely peaceful. I took so many great photos and bought some really high-quality Kurashiki canvas.</p>
-                  </div>
-                  <div class="comment">
-                      <span class="comment-date">1 week ago</span>
-                      <p class="comment-author">Traveler_B</p>
-                      <p>Perfect for a day trip. Don't forget to visit the Ohara Museum. The local sweets were delicious too!</p>
-                  </div>
-              </div>
+              ${generateComments('en')}
           `,
-          // KẾT THÚC PHẦN MỚI
           mission: `<strong>🌱 Final Mission:</strong> In Kurashiki Bikan District, take photos or videos that show your "heart of courage."
                     Post them on social media with the hashtags <code>#MomotarouEcoHero</code> and <code>#KurashikiBikanSpirit</code>,
                     then click the button below to get your final stamp!`,
@@ -254,54 +280,25 @@
                         <li>乘坐历史运河上的小船。</li>
                         <li>一边欣赏美丽的运河，一边品尝当地的点心。</li>
                       </ul>`,
-          // PHẦN MỚI: TRẢI NGHIỆM THỰC TẾ
           real_experience: `
               <h2>🎬 体验实景感受</h2>
               <div class="video-container">
                   <iframe src="${commonData.youtubeVideo}" title="YouTube video player - 仓敷美观" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
 
-              <h3>✨ 旅客精彩瞬间</h3>
+              <h3>✨ 旅客精彩瞬间 (10张照片)</h3>
               <div class="image-gallery">
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/105/300/200" alt="照片 1" />
-                      <h4>宁静的运河之流</h4>
-                      <p class="feedback">"早上的游船之旅真是精神疗法。感觉像穿越回了江户时代！" - <span style="font-weight: bold;">Tung 先生</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/175/300/200" alt="照片 2" />
-                      <h4>白墙建筑之美</h4>
-                      <p class="feedback">"每个角落都适合拍照。我喜欢古老建筑和绿色植物的结合。" - <span style="font-weight: bold;">Mai 女士</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/214/300/200" alt="照片 3" />
-                      <h4>人力车体验</h4>
-                      <p class="feedback">"车夫讲述的当地历史和自然保护故事非常棒。非常值得一坐！" - <span style="font-weight: bold;">日本旅游杂志</span></p>
-                  </div>
+                  ${generateImageGallery('zh')}
               </div>
-
-              <h3>💬 社区评论              </h3>
-              <div class="comments-section">
-                  <div class="comment">
-                      <span class="comment-date">2天前</span>
-                      <p class="comment-author">王 小明</p>
-                      <p>这个地区真的很和平。我拍了很多很棒的照片，还买了质量很好的仓敷帆布。</p>
-                  </div>
-                  <div class="comment">
-                      <span class="comment-date">1周前</span>
-                      <p class="comment-author">旅行者 B</p>
-                      <p>非常适合一日游。别忘了去参观大原美术馆。当地的甜点也很美味！</p>
-                  </div>
-              </div>
+              ${generateComments('zh')}
           `,
-          // KẾT THÚC PHẦN MỚI
           mission: `<strong>🌱 最终任务：</strong> 在仓敷美观地区拍摄能展现你“勇气之心”的照片或视频。
                     在社交媒体上发布并添加标签 <code>#MomotarouEcoHero</code> 和 <code>#KurashikiBikanSpirit</code>,
                     然后点击下方按钮领取最后的印章！`,
           buttonText: "🌟 任务完成 & 领取最后的印章",
           stampMessage: "🎉 恭喜！你已从仓敷美观地区获得最后的印章！",
           stampSuccess: "🌟 你已正式成为桃太郎生态英雄！",
-          closing: `<h2>🏆 你的冒险已经完成！</h2>
+          closing: `<h2>🏆 你的冒险已经完成！                    </h2>
                     <p>你完成了生态英雄的冒险，来到了拥有美丽自然与历史的仓敷美观地区。</p>
                     <p>📸 继续使用标签 <code>#MomotarouEcoHero</code> 来传播环保的信息吧！</p>
                     <p>🍑 桃子的精神将永远与你同在。感谢你参与冈山——这片传奇与绿色行动之地的冒险。</p>`,
@@ -311,54 +308,25 @@
           title: "모모타로 에코 어드벤처 - 쿠라시키 비칸 지구",
           intro: `<h2>쿠라시키 비칸 지구</h2>
                   <p>멋져요! 쿠라시키 비칸 지구의 매력을 느끼며 모모타로의 용기를 보여주세요.
-                    전통적인 거리와 아름다운 운하를 탐험하며 진정한 에코 히어로가 될 수 있는지 시험해 보세요.</p>`,
+                    전통적인 거리와 아름다운 운하를 탐험하며 진정한 에코 히어로가 될 수 있는지 시험해 보세요。</p>`,
           activities: `<h2>🎌 쿠라시키 비칸 지구에서의 체험:</h2>
                       <ul>
                         <li>전통적인 흰 벽의 거리를 산책해 보세요.</li>
                         <li>역사적인 운하에서 뱃놀이를 즐기세요.</li>
-                        <li>아름다운 운하를 바라보며 지역 과자를 즐겨보세요.</li>
+                        <li>아름다운 운하를 바라보며 지역 과자를 즐겨보세요。</li>
                       </ul>`,
-          // PHẦN MỚI: TRẢI NGHIỆM THỰC TẾ
           real_experience: `
               <h2>🎬 생생한 체험 느껴보기</h2>
               <div class="video-container">
                   <iframe src="${commonData.youtubeVideo}" title="YouTube video player - 쿠라시키 비칸" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
 
-              <h3>✨ 여행자 하이라이트</h3>
+              <h3>✨ 여행자 하이라이트 (10장의 사진)</h3>
               <div class="image-gallery">
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/105/300/200" alt="사진 1" />
-                      <h4>평화로운 운하의 흐름</h4>
-                      <p class="feedback">"아침 뱃놀이는 정말 정신적인 치료가 되었어요. 에도 시대로 시간 여행 온 기분!" - <span style="font-weight: bold;">Tung 님</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/175/300/200" alt="사진 2" />
-                      <h4>흰 벽 건축의 미학</h4>
-                      <p class="feedback">"어디를 찍어도 그림이 되는 곳. 고대 건축과 녹색의 조화가 최고였습니다." - <span style="font-weight: bold;">Mai 님</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/214/300/200" alt="사진 3" />
-                      <h4>인력거 체험</h4>
-                      <p class="feedback">"인력거꾼이 들려주는 이 지역의 역사와 자연 보존 이야기가 정말 흥미로웠어요. 탈 가치가 있습니다!" - <span style="font-weight: bold;">일본 여행 잡지</span></p>
-                  </div>
+                  ${generateImageGallery('ko')}
               </div>
-
-              <h3>💬 커뮤니티 댓글</h3>
-              <div class="comments-section">
-                  <div class="comment">
-                      <span class="comment-date">2일 전</span>
-                      <p class="comment-author">김 철수</p>
-                      <p>이 지역은 정말 평화로워요. 멋진 사진을 많이 찍었고, 퀄리티 좋은 쿠라시키 캔버스도 샀습니다.</p>
-                  </div>
-                  <div class="comment">
-                      <span class="comment-date">1주 전</span>
-                      <p class="comment-author">Traveler_B</p>
-                      <p>당일치기 여행에 완벽합니다. 오하라 미술관 방문을 잊지 마세요. 지역 디저트도 정말 맛있었어요!</p>
-                  </div>
-              </div>
+              ${generateComments('ko')}
           `,
-          // KẾT THÚC PHẦN MỚI
           mission: `<strong>🌱 마지막 미션:</strong> 쿠라시키 비칸 지구에서 당신의 “용기의 마음”을 보여주는 사진이나 영상을 찍으세요.
                     SNS에 <code>#MomotarouEcoHero</code> 와 <code>#KurashikiBikanSpirit</code> 해시태그를 달아 올리고,
                     아래 버튼을 눌러 마지막 스탬프를 받아보세요!`,
@@ -366,63 +334,34 @@
           stampMessage: "🎉 축하합니다! 쿠라시키 비칸 지구에서 마지막 스탬프를 받았습니다!",
           stampSuccess: "🌟 당신은 공식적으로 모모타로 에코 히어로가 되었습니다!",
           closing: `<h2>🏆 당신의 여정이 완료되었습니다!</h2>
-                    <p>에코 히어로로서의 모험을 마치고, 아름다운 자연과 역사를 지닌 쿠라시키 비칸 지구에 도착했습니다.</p>
+                    <p>에코 히어로로서의 모험을 마치고, 아름다운 자연과 역사를 지닌 쿠라시키 비칸 지구에 도착했습니다。</p>
                     <p>📸 해시태그 <code>#MomotarouEcoHero</code> 를 사용하여 환경 보호 메시지를 계속 전파하세요!</p>
-                    <p>🍑 복숭아의 정신은 항상 당신과 함께할 것입니다. 전설과 그린 액션의 땅, 오카야마에서의 모험에 참여해 주셔서 감사합니다.</p>`,
+                    <p>🍑 복숭아의 정신은 항상 당신과 함께할 것입니다. 전설과 그린 액션의 땅, 오카야마에서의 모험에 참여해 주셔서 감사합니다。</p>`,
           complete_journey: "모험 완료하기"
         },
         fr: {
           title: "Aventure Écologique de Momotaro - Quartier Historique de Kurashiki Bikan",
           intro: `<h2>Quartier Historique de Kurashiki Bikan</h2>
                   <p>Magnifique ! Ressentez le charme du quartier historique de Kurashiki Bikan tout en montrant le courage de Momotaro.
-                    Explorez les rues traditionnelles et les beaux canaux pour voir si vous pouvez devenir un véritable héros écologique.</p>`,
+                    Explorez les rues traditionnelles et les beaux canaux pour voir si vous pouvez devenir un véritable héros écologique。</p>`,
           activities: `<h2>🎌 Expériences dans le Quartier de Kurashiki Bikan :</h2>
                       <ul>
                         <li>Promenez-vous dans les rues traditionnelles aux murs blancs.</li>
                         <li>Faites une promenade en bateau sur le canal historique.</li>
                         <li>Dégustez des douceurs locales tout en admirant le magnifique canal.</li>
                       </ul>`,
-          // PHẦN MỚI: TRẢI NGHIỆM THỰC TẾ
           real_experience: `
               <h2>🎬 Aperçu de l'Expérience Réelle</h2>
               <div class="video-container">
                   <iframe src="${commonData.youtubeVideo}" title="YouTube video player - Kurashiki Bikan" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
 
-              <h3>✨ Les Moments Forts des Voyageurs</h3>
+              <h3>✨ Les Moments Forts des Voyageurs (10 Photos)</h3>
               <div class="image-gallery">
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/105/300/200" alt="Photo 1" />
-                      <h4>Le Flux Serein du Canal</h4>
-                      <p class="feedback">"La promenade en bateau le matin a été une véritable thérapie spirituelle. On se croirait revenu à l'époque d'Edo !" - <span style="font-weight: bold;">Tung A.</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/175/300/200" alt="Photo 2" />
-                      <h4>Architecture aux Murs Blancs</h4>
-                      <p class="feedback">"Chaque coin est une occasion de photo. J'ai adoré la combinaison de l'architecture ancienne et de la verdure." - <span style="font-weight: bold;">Mai N.</span></p>
-                  </div>
-                  <div class="image-card">
-                      <img src="https://picsum.photos/id/214/300/200" alt="Photo 3" />
-                      <h4>Expérience en Pousse-Pousse</h4>
-                      <p class="feedback">"Le conducteur de pousse-pousse a raconté de belles histoires sur l'histoire de la préservation de la nature ici. Cela vaut le détour !" - <span style="font-weight: bold;">Magazine Voyage Japon</span></p>
-                  </div>
+                  ${generateImageGallery('fr')}
               </div>
-
-              <h3>💬 Commentaires de la Communauté</h3>
-              <div class="comments-section">
-                  <div class="comment">
-                      <span class="comment-date">Il y a 2 jours</span>
-                      <p class="comment-author">Pierre D.</p>
-                      <p>Cette zone est vraiment paisible. J'ai pris de superbes photos et acheté de la toile de Kurashiki de très bonne qualité.</p>
-                  </div>
-                  <div class="comment">
-                      <span class="comment-date">Il y a 1 semaine</span>
-                      <p class="comment-author">Voyageur_B</p>
-                      <p>Parfait pour une excursion d'une journée. N'oubliez pas de visiter le Musée Ohara. Les douceurs locales étaient délicieuses aussi !</p>
-                  </div>
-              </div>
+              ${generateComments('fr')}
           `,
-          // KẾT THÚC PHẦN MỚI
           mission: `<strong>🌱 Mission Finale :</strong> Dans le quartier de Kurashiki Bikan, prenez des photos ou vidéos montrant votre “cœur courageux”.
                     Publiez-les sur les réseaux sociaux avec les hashtags <code>#MomotarouEcoHero</code> et <code>#KurashikiBikanSpirit</code>,
                     puis cliquez sur le bouton ci-dessous pour recevoir votre dernier tampon !`,
@@ -430,10 +369,45 @@
           stampMessage: "🎉 Félicitations ! Vous avez reçu le dernier tampon du Quartier Historique de Kurashiki Bikan !",
           stampSuccess: "🌟 Vous êtes officiellement devenu un Héros Écologique Momotaro !",
           closing: `<h2>🏆 Votre aventure est terminée !</h2>
-                    <p>Vous avez terminé votre aventure de héros écologique et atteint le magnifique quartier de Kurashiki Bikan, riche en nature et en histoire.</p>
+                    <p>Vous avez terminé votre aventure de héros écologique et atteint le magnifique quartier de Kurashiki Bikan, riche en nature et en histoire。</p>
                     <p>📸 Continuez à partager votre message pour la protection de l’environnement avec le hashtag <code>#MomotarouEcoHero</code> !</p>
-                    <p>🍑 L’esprit de la pêche sera toujours avec vous. Merci d’avoir participé à cette aventure à Okayama — la terre des légendes et de l’action verte.</p>`,
+                    <p>🍑 L’esprit de la pêche sera toujours avec vous. Merci d’avoir participé à cette aventure à Okayama — la terre des légendes et de l’action verte。</p>`,
           complete_journey: "Terminer l’Aventure"
+        },
+        ne: { // Dữ liệu Nepali mới
+          title: "मोमोतारो पर्यावरण साहसिक - कुराशिकी बिकान ऐतिहासिक जिल्ला",
+          intro: `<h2>कुराशिकी बिकान जिल्ला</h2>
+                  <p>उत्कृष्ट! मोमोतारोको साहस देखाउँदै कुराशिकी बिकान जिल्लाको आकर्षण महसुस गर्नुहोस्।
+                    परम्परागत सडक र सुन्दर नहरहरू अन्वेषण गर्नुहोस्, र तपाईं वास्तविक पर्यावरण नायक बन्न सक्नुहुन्छ कि छैन हेर्नुहोस्।</p>`,
+          activities: `<h2>🎌 कुराशिकी बिकान जिल्लाका अनुभवहरू:</h2>
+                      <ul>
+                        <li>परम्परागत सेतो पर्खाल भएका सडकहरूमा टहल्नुहोस्।</li>
+                        <li>ऐतिहासिक नहरमा डुङ्गा यात्रा गर्नुहोस्।</li>
+                        <li>सुन्दर नहरको प्रशंसा गर्दै स्थानीय मिठाईहरूको आनन्द लिनुहोस्।</li>
+                      </ul>`,
+          real_experience: `
+              <h2>🎬 वास्तविक अनुभव महसुस गर्नुहोस्</h2>
+              <div class="video-container">
+                  <iframe src="${commonData.youtubeVideo}" title="YouTube video player - Kurashiki Bikan" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+
+              <h3>✨ यात्री हाइलाइटहरू (10 तस्बिरहरू)</h3>
+              <div class="image-gallery">
+                  ${generateImageGallery('ne')}
+              </div>
+              ${generateComments('ne')}
+          `,
+          mission: `<strong>🌱 अन्तिम मिशन:</strong> कुराशिकी बिकान जिल्लामा, आफ्नो "साहसको हृदय" देखाउने फोटो वा भिडियो लिनुहोस्।
+                      ह्याशट्याग <code>#MomotarouEcoHero</code> र <code>#KurashikiBikanSpirit</code> को साथ सामाजिक सञ्जालमा पोस्ट गर्नुहोस्,
+                      त्यसपछि आफ्नो अन्तिम स्ट्याम्प प्राप्त गर्न तलको बटन क्लिक गर्नुहोस्!`,
+          buttonText: "🌟 मिशन पूरा गर्नुहोस् र अन्तिम स्ट्याम्प प्राप्त गर्नुहोस्",
+          stampMessage: "🎉 बधाई छ! तपाईंले कुराशिकी बिकान ऐतिहासिक जिल्लाबाट स्ट्याम्प प्राप्त गर्नुभयो!",
+          stampSuccess: "🌟 तपाईं आधिकारिक रूपमा मोमोतारो पर्यावरण नायक बन्नुभयो!",
+          closing: `<h2>🏆 तपाईंको यात्रा पूरा भयो!</h2>
+                    <p>तपाईंले आफ्नो पर्यावरण नायकको साहसिक कार्य पूरा गर्नुभयो र प्रकृति र इतिहास मिसिएको सुन्दर कुराशिकी बिकान जिल्लामा पुग्नुभयो।</p>
+                    <p>📸 ह्याशट्याग <code>#MomotarouEcoHero</code> प्रयोग गरेर आफ्नो पर्यावरण सन्देश फैलाउन जारी राख्नुहोस्!</p>
+                    <p>🍑 आरुको आत्मा सधैं तपाईंसँग रहनेछ। किंवदन्ती र हरित कार्यको भूमि ओकायामामा साहसिक कार्यमा सहभागी हुनुभएकोमा धन्यवाद।</p>`,
+          complete_journey: "साहसिक कार्य पूरा गर्नुहोस्"
         }
       };
 
