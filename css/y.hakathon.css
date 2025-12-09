@@ -6,13 +6,20 @@
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f0f8f5;
-  color: #333;
-  line-height: 1.6;
-  padding: 20px;
-}
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #333;
 
+    /* Dòng này là nơi bạn đặt URL */
+    background-image: url('https://www.facebook.com/photo.php?fbid=1004447850677321&set=pb.100033363460803.-2207520000&type=3'); 
+    
+    background-size: cover; 
+    background-attachment: fixed;
+    background-position: center center;
+    background-color: #ffe0e6;
+}
 /* Layout */
 header, .content, .footer {
   max-width: 900px;
