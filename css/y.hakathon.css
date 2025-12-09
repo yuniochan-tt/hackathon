@@ -147,3 +147,137 @@ section {
   color: #777;
   margin-top: 40px;
 }
+/* --- BỔ SUNG CSS CHO PHẦN TRẢI NGHIỆM THỰC TẾ (real_experience) --- */
+
+/* Section nền */
+.section-experience {
+    background-color: #ffffff; /* Giữ nền trắng như các section khác */
+    padding: 30px 20px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Shadow rõ hơn */
+    border: 1px solid #c8e6c9; /* Viền xanh nhạt tinh tế */
+}
+
+.section-experience h2 {
+    text-align: center;
+    color: #2e7d32; /* Màu xanh lá cây đậm */
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #a5d6a7;
+    padding-bottom: 10px;
+}
+
+.section-experience h3 {
+    color: #4caf50; /* Màu xanh lá cây tươi */
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+/* Video Container */
+.video-container {
+    max-width: 750px;
+    margin: 0 auto 30px;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 56.25%; /* Tỉ lệ 16:9 cho iframe */
+    height: 0;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Image Gallery (Sử dụng lại .image-box nếu muốn đồng bộ) */
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.image-card {
+    background: #f9fdf9; /* Nền trắng hơi ngả xanh */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 1px solid #e0f2f1;
+    transition: transform 0.3s ease;
+}
+
+.image-card:hover {
+    transform: translateY(-5px); /* Hiệu ứng nâng nhẹ khi hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.image-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.image-card h4 {
+    color: #4caf50;
+    margin-bottom: 5px;
+}
+
+.image-card .feedback {
+    font-style: italic;
+    color: #555;
+    margin-top: 8px;
+    font-size: 0.9em;
+    padding-top: 5px;
+    border-top: 1px dashed #e0e0e0;
+}
+
+/* Comments Section */
+.comments-section {
+    max-width: 750px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.comment {
+    background: #e8f5e9; /* Nền xanh lá nhạt cho comment */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #2e7d32; /* Viền xanh đậm */
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #2e7d32;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.comment-date {
+    font-size: 0.8em;
+    color: #777;
+    float: right;
+    line-height: 1.5; /* Căn chỉnh với tên tác giả */
+}
+
+.comment p {
+    margin-top: 5px;
+}
+
+/* Clearfix cho bình luận */
+.comment:after {
+    content: "";
+    display: table;
+    clear: both;
+}
