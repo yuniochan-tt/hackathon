@@ -377,25 +377,19 @@ const translations = {
     }
 };
 
-// Hàm chuyển đổi (toggle) hiển thị/ẩn menu thả xuống
-function toggleDropdown() {
-    document.getElementById("languageSelector").classList.toggle("open");
-}
-
-// Hàm thay đổi ngôn ngữ trên trang
+// Hàm thay đổi ngôn ngữ trên trang (Điều chỉnh để khớp với Bootstrap)
 function changeLanguage(langCode) {
     const currentLangData = translations[langCode];
-    
     if (!currentLangData) return;
 
     // 1. Cập nhật mã ngôn ngữ cho thẻ <html>
     document.documentElement.lang = langCode;
-    
+
     // 2. Cập nhật nội dung
     document.querySelectorAll('[data-key]').forEach(element => {
         const key = element.getAttribute('data-key');
         if (currentLangData[key]) {
-            // Cập nhật nội dung, hỗ trợ thẻ <br>
+            // Cập nhật nội dung, hỗ trợ thẻ <br> (sử dụng innerHTML)
             if (key === 'boat_p' || key === 'ivi_p' || key === 'oharabijyutukan_p') {
                 element.innerHTML = currentLangData[key];
             } else {
@@ -404,21 +398,20 @@ function changeLanguage(langCode) {
         }
     });
 
-    // 3. Cập nhật nút chọn ngôn ngữ hiện tại
-    const langButton = document.querySelector('.lang-button');
+    // 3. Cập nhật nút chọn ngôn ngữ hiện tại (Cần lấy nút có ID langDropdown)
+    const langButton = document.getElementById('langDropdown');
     if (langButton) {
-        // Lấy lại văn bản từ data-key="lang_button"
-        const langButtonText = currentLangData['lang_button'];
-        // Giữ nguyên icon mũi tên
-        langButton.innerHTML = `${langButtonText} <i class="fas fa-caret-down"></i>`;
+        // Cập nhật text content, đã bao gồm icon trong data translation để đơn giản hóa
+        langButton.textContent = currentLangData['lang_button'];
     }
 
-    // 4. Đóng menu thả xuống
-    // Đảm bảo đóng nếu nó đang mở
-    const selector = document.getElementById("languageSelector");
-    if (selector.classList.contains('open')) {
-        selector.classList.remove('open');
-    }
+    // 4. Cập nhật URL trong menu thả xuống để giữ lại ngôn ngữ
+    document.querySelectorAll('#navbarNav .dropdown-menu a').forEach(link => {
+        const linkLang = link.textContent.match(/\(([^)]+)\)/)[1].toLowerCase();
+        // Thay đổi href của các link trong dropdown menu thành # để tránh tải lại trang
+        // khi đang dùng chức năng JS.
+        link.href = `#${linkLang}`;
+    });
 
     console.log(`Đã chuyển sang ngôn ngữ: ${langCode}`);
 }
@@ -426,34 +419,87 @@ function changeLanguage(langCode) {
 
 // Khởi tạo và xử lý sự kiện
 document.addEventListener('DOMContentLoaded', () => {
-    // Thêm sự kiện click cho các liên kết ngôn ngữ
-    document.querySelectorAll('.dropdown-content a').forEach(link => {
+
+    // 1. Gán data-key cho các phần tử cần dịch trong HTML của bạn
+    // **NAVBAR**
+    document.querySelector('.navbar-brand').setAttribute('data-key', 'brand_name');
+    document.querySelector('a[href="#about"]').setAttribute('data-key', 'nav_alley');
+    document.querySelector('a[href="#spots"]').setAttribute('data-key', 'nav_spots');
+    document.querySelector('a[href="#map"]').setAttribute('data-key', 'nav_map');
+    document.getElementById('langDropdown').setAttribute('data-key', 'lang_button'); // Nút chọn ngôn ngữ
+
+    // **HEADER**
+    document.querySelector('.header h1').setAttribute('data-key', 'hero_title');
+
+    // **ABOUT**
+    document.querySelector('#about .section-title').setAttribute('data-key', 'about_title');
+    // Cần thay đổi cấu trúc HTML như đã đề cập để áp data-key cho P1, QUOTE, P2
+    // Vì không có cấu trúc chuẩn, ta sẽ dùng cách này để tạm thời:
+    // **KHUYẾN CÁO: NÊN CHỈNH SỬA HTML CỦA BẠN NHƯ CÁCH 2 TRONG PHẢN HỒI TRƯỚC.**
+    const aboutSection = document.querySelector('#about .card-text.text');
+    if (aboutSection) {
+        // Cố gắng đặt data-key cho quote (sử dụng class .eyes)
+        const quoteElement = aboutSection.querySelector('.eyes');
+        if(quoteElement) {
+            quoteElement.setAttribute('data-key', 'about_quote');
+        }
+        // Nếu không sửa HTML, việc đặt P1 và P2 sẽ phức tạp vì chúng là text node.
+        // Tốt nhất là chia nhỏ các đoạn văn P1, QUOTE, P2 trong HTML thành các thẻ <p> riêng biệt và gán data-key.
+    }
+    // **ĐOẠN NÀY LÀ KHUYẾN NGHỊ THÊM data-key VÀO CẤU TRÚC HTML TÔI ĐÃ ĐỀ XUẤT TRƯỚC**
+
+    // **SPOTS**
+    document.querySelector('#spots .section-title').setAttribute('data-key', 'spots_title');
+    // Gán data-key cho tiêu đề bảng (table titles - Khai, Đóng, Phí)
+    document.querySelectorAll('.card table tr').forEach(row => {
+        const header = row.querySelector('td:first-child');
+        if (header) {
+            const content = header.textContent.trim();
+            if (content.includes('開ける') || content.includes('Mở cửa')) {
+                 header.setAttribute('data-key', 'table_open');
+            } else if (content.includes('閉店') || content.includes('Đóng cửa')) {
+                 header.setAttribute('data-key', 'table_close');
+            } else if (content.includes('手数料') || content.includes('Phí')) {
+                 header.setAttribute('data-key', 'table_fee');
+            }
+        }
+    });
+
+    // **MAP**
+    document.querySelector('#map .map_title').setAttribute('data-key', 'map_title');
+
+    // **FOOTER**
+    const footerP = document.querySelector('.footer .container p');
+    if (footerP) {
+        footerP.setAttribute('data-key', 'footer_copy');
+    }
+    
+    // 2. Thêm sự kiện click cho các liên kết ngôn ngữ
+    // LƯU Ý: Sử dụng selector .dropdown-menu thay cho .dropdown-content
+    document.querySelectorAll('#navbarNav .dropdown-menu a').forEach(link => {
         link.addEventListener('click', (event) => {
-            event.preventDefault(); 
-            const langCode = link.getAttribute('data-lang');
-            changeLanguage(langCode);
+            event.preventDefault(); // Rất quan trọng để ngăn tải lại trang
+            // Lấy mã ngôn ngữ từ href hoặc một thuộc tính data-lang (nếu bạn thêm)
+            // Hiện tại, ta sẽ dựa vào href='kurashiki-vi.html' để trích xuất 'vi'
+            const href = link.getAttribute('href');
+            // Trích xuất mã ngôn ngữ (ví dụ: 'kurashiki-vi.html' -> 'vi')
+            const langCodeMatch = href.match(/-(ja|en|vi|ko|ne)\.html$/);
+            if (langCodeMatch && translations[langCodeMatch[1]]) {
+                changeLanguage(langCodeMatch[1]);
+            } else {
+                // Nếu không khớp, sử dụng mã mặc định 'ja'
+                changeLanguage('ja');
+            }
+
+            // **KHÔNG CẦN TẮT DROPDOWN THỦ CÔNG**, Bootstrap sẽ tự làm việc đó
         });
     });
 
-    // Thêm data-key cho phần tử Footer P (giả định)
-    const footerP = document.querySelector('.footer .container p');
-    if (footerP && !footerP.hasAttribute('data-key')) {
-        footerP.setAttribute('data-key', 'footer_copy');
-    }
-
-    // Đóng menu nếu người dùng click ra ngoài
-    window.onclick = function(event) {
-        const selector = document.getElementById("languageSelector");
-        // Đảm bảo nút không phải là mục tiêu click
-        if (selector && !event.target.closest('.language-selector')) {
-            if (selector.classList.contains('open')) {
-                selector.classList.remove('open');
-            }
-        }
-    }
-    
-    // Tải ngôn ngữ mặc định (Tiếng Nhật)
-    // Cố gắng lấy ngôn ngữ từ thẻ <html>, nếu không có thì mặc định là 'ja'
+    // 3. Tải ngôn ngữ mặc định (Tiếng Nhật)
     const initialLang = document.documentElement.lang || 'ja';
-    changeLanguage(initialLang); 
+    changeLanguage(initialLang);
 });
+
+// Loại bỏ các hàm/biến không dùng:
+// - `toggleDropdown()` không cần thiết vì dùng Bootstrap.
+// - `window.onclick` không cần thiết vì Bootstrap xử lý.
