@@ -1,430 +1,207 @@
-/* Reset & base */
-
+/* --- 1. RESET & BASE --- */
 * {
-
   box-sizing: border-box;
-
   margin: 0;
-
   padding: 0;
-
 }
-
-
 
 body {
-
-  font-family: 'Segoe UI', sans-serif;
-
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0f8f5;
-
   color: #333;
-
   line-height: 1.6;
-
   padding: 20px;
-
 }
-
-
-
-/* Layout */
 
 header, .content, .footer {
-
   max-width: 900px;
-
   margin: auto;
-
   padding: 10px 20px;
-
 }
 
-
-
-/* Header */
-
+/* --- 2. HEADER & LANG SWITCH --- */
 header h1 {
-
   font-size: 2rem;
-
   color: #2e7d32;
-
   text-align: center;
-
   margin-bottom: 20px;
-
 }
-
-
-
-/* Language switch */
 
 .lang-switch {
-
   text-align: center;
-
   margin-bottom: 20px;
-
 }
-
-
 
 .lang-switch button {
-
   margin: 5px;
-
   padding: 8px 14px;
-
   font-size: 0.95rem;
-
   border: none;
-
   border-radius: 6px;
-
   background-color: #c8e6c9;
-
   color: #2e7d32;
-
   cursor: pointer;
-
-  transition: background-color 0.3s ease;
-
+  transition: 0.3s;
 }
-
-
 
 .lang-switch button:hover {
-
   background-color: #a5d6a7;
-
 }
 
+/* --- 3. VIDEO CARD (Sửa lỗi ảnh bẹp & chữ đè) --- */
+.video-card-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 25px auto;
+  padding: 0 10px;
+}
 
+.video-link {
+  text-decoration: none;
+  display: block;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
 
-/* Sections */
+.video-link:hover {
+  transform: translateY(-5px);
+}
 
+.video-banner {
+  position: relative;
+  width: 100%;
+  height: 450px; /* Ép chiều cao cố định để không bị bẹp */
+  background-color: #000;
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Giữ tỉ lệ ảnh đẹp */
+  display: block;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0; left: 0; 
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.35); /* Làm tối nền để nổi chữ */
+  display: flex;
+  flex-direction: column; /* Nút trên chữ dưới để không bị đè */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.play-button-custom {
+  width: 80px;
+  height: 80px;
+  background: #ff0000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid #fff;
+  margin-bottom: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Vẽ tam giác nút Play */
+.play-button-custom::after {
+  content: "";
+  width: 0; height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 25px solid white;
+  margin-left: 8px;
+}
+
+.video-cta-text {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 8px rgba(0,0,0,1); /* Đổ bóng mạnh để đọc được trên mọi nền ảnh */
+}
+
+/* --- 4. SECTIONS & MISSION --- */
 section {
-
-  margin-bottom: 30px;
-
-}
-
-
-
-.activities, .mission, .confirm-box, .closing {
-
   background-color: #ffffff;
-
-  border-radius: 10px;
-
-  padding: 20px;
-
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
-
-
-
-.activities ul {
-
-  list-style: none;
-
-  padding-left: 0;
-
-}
-
-
 
 .activities li::before {
-
   content: "🍑 ";
-
 }
-
-
-
-/* Mission button */
 
 .mission-btn {
-
-  display: inline-block;
-
-  padding: 12px 24px;
-
-  font-size: 1rem;
-
-  background-color: #4caf50;
-
-  color: white;
-
-  border: none;
-
-  border-radius: 8px;
-
-  cursor: pointer;
-
-  transition: background-color 0.3s ease;
-
-}
-
-
-
-.mission-btn:hover {
-
-  background-color: #388e3c;
-
-}
-
-
-
-/* Stamp message */
-
-.stamp-message {
-
-  margin-top: 15px;
-
-  font-weight: bold;
-
-  color: #2e7d32;
-
-  text-align: center;
-
-}
-
-
-
-/* Stamp image */
-
-#stampImage img {
-
   display: block;
-
-  margin: 0 auto;
-
-  animation: pop 0.5s ease;
-
-}
-
-
-
-@keyframes pop {
-
-  0% { transform: scale(0.5); opacity: 0; }
-
-  100% { transform: scale(1); opacity: 1; }
-
-}
-
-
-
-/* Image gallery */
-
-.image-box {
-
-  display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-
-  gap: 15px;
-
-  margin: 30px 0;
-
-}
-
-
-
-.image-box img {
-
   width: 100%;
-
-  height: 200px; /* Đặt chiều cao cố định */
-
-  object-fit: cover; /* Cắt ảnh để vừa khung mà không méo */
-
+  max-width: 300px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
   border-radius: 10px;
-
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-
-  transition: transform 0.3s ease;
-
+  font-weight: bold;
+  cursor: pointer;
 }
 
-
-
-.image-box img:hover {
-
-  transform: scale(1.03);
-
-}
-
-
-
-
-
-/* Closing section */
-
-.closing h2 {
-
-  color: #388e3c;
-
-  margin-bottom: 10px;
-
-}
-
-
-
-.closing p {
-
-  margin-bottom: 10px;
-
-}
-/* --- BỔ SUNG CSS CHO PHẦN TRẢI NGHIỆM THỰC TẾ (real_experience) --- */
-
-/* Section nền */
-.section-experience {
-    background-color: #ffffff; /* Giữ nền trắng như các section khác */
-    padding: 30px 20px;
-    margin-top: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Shadow rõ hơn */
-    border: 1px solid #c8e6c9; /* Viền xanh nhạt tinh tế */
-}
-
-.section-experience h2 {
-    text-align: center;
-    color: #2e7d32; /* Màu xanh lá cây đậm */
-    margin-bottom: 25px;
-    font-size: 1.8rem;
-    border-bottom: 2px solid #a5d6a7;
-    padding-bottom: 10px;
-}
-
-.section-experience h3 {
-    color: #4caf50; /* Màu xanh lá cây tươi */
-    margin-top: 30px;
-    margin-bottom: 15px;
-    font-size: 1.4rem;
-}
-
-/* Video Container */
-.video-container {
-    max-width: 750px;
-    margin: 0 auto 30px;
-    overflow: hidden;
-    position: relative;
-    padding-bottom: 56.25%; /* Tỉ lệ 16:9 cho iframe */
-    height: 0;
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-/* Image Gallery (Sử dụng lại .image-box nếu muốn đồng bộ) */
+/* --- 5. GALLERY (10 ẢNH) --- */
 .image-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
 }
 
 .image-card {
-    background: #f9fdf9; /* Nền trắng hơi ngả xanh */
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    border: 1px solid #e0f2f1;
-    transition: transform 0.3s ease;
-}
-
-.image-card:hover {
-    transform: translateY(-5px); /* Hiệu ứng nâng nhẹ khi hover */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  background: #f9fdf9;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e0f2f1;
+  text-align: center;
 }
 
 .image-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
-.image-card h4 {
-    color: #4caf50;
-    margin-bottom: 5px;
-}
-
-.image-card .feedback {
-    font-style: italic;
-    color: #555;
-    margin-top: 8px;
-    font-size: 0.9em;
-    padding-top: 5px;
-    border-top: 1px dashed #e0e0e0;
-}
-
-/* Comments Section */
-.comments-section {
-    max-width: 750px;
-    margin: 0 auto;
-    padding-top: 20px;
-}
-
+/* --- 6. COMMENTS & FOOTER --- */
 .comment {
-    background: #e8f5e9; /* Nền xanh lá nhạt cho comment */
-    padding: 15px;
-    margin-bottom: 15px;
-    border-left: 5px solid #2e7d32; /* Viền xanh đậm */
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
-
-.comment-author {
-    font-weight: bold;
-    color: #2e7d32;
-    margin-bottom: 5px;
-    display: inline-block;
+  background: #e8f5e9;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-left: 5px solid #2e7d32;
+  border-radius: 8px;
 }
 
 .comment-date {
-    font-size: 0.8em;
-    color: #777;
-    float: right;
-    line-height: 1.5; /* Căn chỉnh với tên tác giả */
+  font-size: 0.8rem;
+  color: #777;
+  float: right;
 }
-
-.comment p {
-    margin-top: 5px;
-}
-
-/* Clearfix cho bình luận */
-.comment:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-
-/* Footer */
 
 .footer {
-
   text-align: center;
-
   font-size: 0.9rem;
-
   color: #777;
-
   margin-top: 40px;
+}
 
+/* Animation cho con dấu */
+@keyframes pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
