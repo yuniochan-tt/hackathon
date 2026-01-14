@@ -240,56 +240,57 @@
 
       function generateComments(lang) {
           const comments = {
-              vi: [
-                  { date: "2 ngày trước", author: "Nguyễn Văn A", text: "Khu vực này thực sự thanh bình. Tôi đã chụp được rất nhiều ảnh đẹp và mua được vải Kurashiki rất chất lượng." },
-                  { date: "1 tuần trước", author: "Traveler_B", text: "Rất phù hợp cho chuyến đi 1 ngày. Đừng quên ghé thăm bảo tàng Ohara. Đồ ngọt địa phương cũng rất ngon!" },
-                  { date: "3 ngày trước", author: "Thùy Linh", text: "Tôi yêu kiến trúc truyền thống ở đây! Cảm giác như lạc vào một thế giới khác." },
-                  { date: "1 tháng trước", author: "Minh Khoa", text: "Trải nghiệm đi thuyền trên kênh đào là điều bắt buộc phải làm. Rất lãng mạn!" },
-                  { date: "5 ngày trước", author: "Mai Phương", text: "Người dân địa phương rất thân thiện và nhiệt tình. Chắc chắn sẽ quay lại!" }
-              ],
               ja: [
-                  { date: "2日前", author: "佐藤 A", text: "本当に平和で美しいエリアです。素敵な写真がたくさん撮れたし、倉敷帆布も買えて大満足。" },
-                  { date: "1週間前", author: "旅人 B", text: "日帰り旅行に最適。大原美術館も忘れずに。地元のスイーツも絶品でした！" },
-                  { date: "3日前", author: "田中 美紀", text: "ここの伝統的な建築が大好きです！まるで別世界に迷い込んだような気分。" },
-                  { date: "1ヶ月前", author: "山本 健太", text: "運河での舟乗り体験は絶対にやるべきです。とてもロマンチック！" },
-                  { date: "5日前", author: "小林 彩", text: "地元の人たちはとてもフレンドリーで親切でした。間違いなくまた訪れます！" }
+                { date: "2日前", author: "中国人１", text: "ここの伝統的な建築がとても好きで、でも今まで倉敷に一泊も泊まったことがありませんでした。" },
+                { date: "1週間前", author: "カルパナさん", text: "倉敷公園にはたくさん古いの荷物を見ることができます。" },
+                { date: "3日前", author: "ミラーさん", text: "倉敷は家族と一緒に来て、おいしい物を食べたり、船は乗ったことがあります。" },
+                { date: "1ヶ月前", author: "アンジェラさん", text: "倉敷公園は夏休みの時はさくらがたくさん咲いている、、今よりとてもきれいになります。" },
+                { date: "5日前", author: "アインさん", text: "ここではいろいろな古い物を買うこともできますので、時間があれば友達と一緒に行って、きれいな物を見たり、いろいろなおいしい食べ物を食べて楽しんでください。" }
+              ],
+              vi: [
+                { date: "2 ngày trước", author: "Du khách Trung Quốc", text: "Tôi rất thích kiến trúc truyền thống ở đây, nhưng đến giờ vẫn chưa từng ở lại Kurashiki qua đêm." },
+                { date: "1 tuần trước", author: "Chị Kalpana", text: "Tại công viên Kurashiki, bạn có thể nhìn thấy rất nhiều đồ cổ." },
+                { date: "3 ngày trước", author: "Anh Miller", text: "Tôi đã đến Kurashiki cùng gia đình, ăn nhiều món ngon và từng đi thuyền nữa." },
+                { date: "1 tháng trước", author: "Chị Angela", text: "Vào kỳ nghỉ hè, công viên Kurashiki có rất nhiều hoa anh đào nở, đẹp hơn bây giờ rất nhiều." },
+                { date: "5 ngày trước", author: "Bạn Ánh", text: "Ở đây có thể mua nhiều món đồ cổ. Nếu có thời gian, hãy đi cùng bạn bè để ngắm cảnh đẹp và thưởng thức các món ăn ngon nhé!" }
               ],
               en: [
-                  { date: "2 days ago", author: "John Doe", text: "This area is genuinely peaceful. I took so many great photos and bought some really high-quality Kurashiki canvas." },
-                  { date: "1 week ago", author: "Traveler_B", text: "Perfect for a day trip. Don't forget to visit the Ohara Museum. The local sweets were delicious too!" },
-                  { date: "3 days ago", author: "Jane Smith", text: "I love the traditional architecture here! It feels like stepping into another world." },
-                  { date: "1 month ago", author: "David Lee", text: "The canal boat ride experience is a must-do. Very romantic!" },
-                  { date: "5 days ago", author: "Emily Brown", text: "The locals were very friendly and helpful. Will definitely return!" }
+                { date: "2 days ago", author: "Chinese Visitor", text: "I really love the traditional architecture here, but I’ve never stayed overnight in Kurashiki before." },
+                { date: "1 week ago", author: "Ms. Kalpana", text: "You can see many old items in Kurashiki Park." },
+                { date: "3 days ago", author: "Mr. Miller", text: "I came to Kurashiki with my family, enjoyed delicious food, and even took a boat ride." },
+                { date: "1 month ago", author: "Ms. Angela", text: "During summer vacation, Kurashiki Park is full of cherry blossoms—much more beautiful than now." },
+                { date: "5 days ago", author: "Ms. Anh", text: "You can buy many old items here. If you have time, go with friends to enjoy the beautiful sights and delicious food!" }
               ],
               zh: [
-                  { date: "2天前", author: "王 小明", text: "这个地区真的很和平。我拍了很多很棒的照片，还买了质量很好的仓敷帆布。" },
-                  { date: "1周前", author: "旅行者 B", text: "非常适合一日游。别忘了去参观大原美术馆。当地的甜点也很美味！" },
-                  { date: "3天前", author: "李 芳", text: "我喜欢这里的传统建筑！感觉就像踏入了另一个世界。" },
-                  { date: "1个月前", author: "陈 刚", text: "运河游船体验是必做的项目。非常浪漫！" },
-                  { date: "5天前", author: "张 莉", text: "当地人非常友好和热情。我一定会再来的！" }
+                { date: "2天前", author: "中国游客", text: "我非常喜欢这里的传统建筑，但我从未在仓敷住过一晚。" },
+                { date: "1周前", author: "卡尔帕娜女士", text: "在仓敷公园可以看到很多古老的物品。" },
+                { date: "3天前", author: "米勒先生", text: "我和家人一起来到仓敷，吃了很多美食，还坐了船。" },
+                { date: "1个月前", author: "安吉拉女士", text: "暑假期间，仓敷公园里樱花盛开，比现在还要美丽。" },
+                { date: "5天前", author: "阿英", text: "这里可以买到很多古董。如果有时间，和朋友一起来看看美景、吃点美食吧！" }
               ],
               ko: [
-                  { date: "2일 전", author: "김 철수", text: "이 지역은 정말 평화로워요. 멋진 사진을 많이 찍었고, 퀄리티 좋은 쿠라시키 캔버스도 샀습니다." },
-                  { date: "1주 전", author: "Traveler_B", text: "당일치기 여행에 완벽합니다. 오하라 미술관 방문을 잊지 마세요. 지역 디저트도 정말 맛있었어요!" },
-                  { date: "3일 전", author: "박지수", text: "저는 여기 전통 건축물이 좋아요! 다른 세계에 온 것 같은 기분입니다." },
-                  { date: "1개월 전", author: "이준호", text: "운하에서의 뱃놀이 체험은 꼭 해야 할 일입니다. 정말 낭만적이에요!" },
-                  { date: "5일 전", author: "최유미", text: "현지인들은 매우 친절하고 도움이 되었습니다. 꼭 다시 방문할 거예요!" }
+                { date: "2일 전", author: "중국인 관광객", text: "이곳의 전통 건축물이 정말 마음에 들어요. 하지만 아직 쿠라시키에서 하룻밤도 묵어본 적이 없어요." },
+                { date: "1주 전", author: "칼파나 씨", text: "쿠라시키 공원에서는 다양한 오래된 물건들을 볼 수 있어요." },
+                { date: "3일 전", author: "밀러 씨", text: "가족과 함께 쿠라시키에 와서 맛있는 음식을 먹고 배도 탔어요." },
+                { date: "1개월 전", author: "안젤라 씨", text: "여름 방학 때 쿠라시키 공원에는 벚꽃이 만발해서 지금보다 훨씬 아름다워요." },
+                { date: "5일 전", author: "아인", text: "여기서는 다양한 오래된 물건을 살 수 있어요. 시간이 있다면 친구들과 함께 와서 아름다운 풍경도 보고 맛있는 음식도 즐겨보세요!" }
               ],
               fr: [
-                  { date: "Il y a 2 jours", author: "Pierre D.", text: "Cette zone est vraiment paisible. J'ai pris de superbes photos et acheté de la toile de Kurashiki de très bonne qualité." },
-                  { date: "Il y a 1 semaine", author: "Voyageur_B", text: "Parfait pour une excursion d'une journée. N'oubliez pas de visiter le Musée Ohara. Les douceurs locales étaient délicieuses aussi !" },
-                  { date: "Il y a 3 jours", author: "Sophie L.", text: "J'adore l'architecture traditionnelle ici ! On a l'impression d'entrer dans un autre monde." },
-                  { date: "Il y a 1 mois", author: "Marc C.", text: "La promenade en bateau sur le canal est une activité incontournable. Très romantique !" },
-                  { date: "Il y a 5 jours", author: "Élise R.", text: "Les habitants locaux étaient très sympathiques et serviables. Je reviendrai certainement !" }
+                { date: "Il y a 2 jours", author: "Visiteur chinois", text: "J'adore l'architecture traditionnelle ici, mais je n'ai jamais passé une nuit à Kurashiki." },
+                { date: "Il y a 1 semaine", author: "Mme Kalpana", text: "Au parc de Kurashiki, on peut voir de nombreux objets anciens." },
+                { date: "Il y a 3 jours", author: "M. Miller", text: "Je suis venu à Kurashiki avec ma famille, nous avons mangé de bons plats et fait un tour en bateau." },
+                { date: "Il y a 1 mois", author: "Mme Angela", text: "Pendant les vacances d'été, le parc de Kurashiki est rempli de cerisiers en fleurs, c'est encore plus beau qu'en ce moment." },
+                { date: "Il y a 5 jours", author: "Mme Anh", text: "On peut acheter plein d’objets anciens ici. Si vous avez le temps, venez avec des amis pour admirer les beaux paysages et goûter de délicieux plats !" }
               ],
-              ne: [ // Dữ liệu Nepali mới
-                  { date: "2 दिन अघि", author: "राम बहादुर", text: "यो क्षेत्र साँच्चै शान्तिमय छ। मैले धेरै सुन्दर तस्बिरहरू लिएँ र धेरै उच्च-गुणस्तरको कुराशिकी क्यानभास किनेँ।" },
-                  { date: "1 हप्ता अघि", author: "यात्री_B", text: "एक दिनको यात्राको लागि उत्तम। ओहारा संग्रहालय भ्रमण गर्न नबिर्सनुहोस्। स्थानीय मिठाईहरू पनि धेरै स्वादिष्ट थिए!" },
-                  { date: "3 दिन अघि", author: "सीता देवी", text: "मलाई यहाँको परम्परागत वास्तुकला मन पर्यो! यो अर्को संसारमा प्रवेश गरेजस्तो लाग्यो।" },
-                  { date: "1 महिना अघि", author: "श्याम कुमार", text: "नहरमा डुङ्गा यात्राको अनुभव एक अनिवार्य कार्य हो। धेरै रोमान्टिक!" },
-                  { date: "5 दिन अघि", author: "पार्वती थापा", text: "स्थानीयहरू धेरै मिलनसार र सहयोगी थिए। निश्चित रूपमा फर्कनेछु!" }
+              ne: [
+                { date: "२ दिन अघि", author: "चिनियाँ पाहुना", text: "मलाई यहाँको परम्परागत वास्तुकला धेरै मन पर्छ, तर अहिलेसम्म म कहिल्यै कुराशिकीमा रात बिताएको छैन।" },
+                { date: "१ हप्ता अघि", author: "कल्पना", text: "कुराशिकी पार्कमा धेरै पुराना सामानहरू हेर्न सकिन्छ।" },
+                { date: "३ दिन अघि", author: "मिलर", text: "म परिवारसँग कुराशिकी आएको थिएँ, स्वादिष्ट खाना खाएँ र डुङ्गा पनि चढेँ।" },
+                { date: "१ महिना अघि", author: "एन्जेला", text: "गर्मी बिदाको समयमा कुराशिकी पार्कमा धेरै चेरी फूलहरू फुल्छन्, अहिलेभन्दा अझ सुन्दर देखिन्छ।" },
+                { date: "५ दिन अघि", author: "आइन", text: "यहाँ धेरै पुराना सामानहरू किन्न सकिन्छ। समय भएमा साथीहरूसँग सँगै गएर सुन्दर दृश्य हेर्नुहोस् र स्वादिष्ट खाना खाएर रमाइलो गर्नुहोस्!" }
               ]
-          };
+            };
+
 
           const data = comments[lang];
           const header = {
