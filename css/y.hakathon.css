@@ -13,16 +13,26 @@ body {
   padding: 20px;
 }
 
-header, .content, .footer {
+ .content, .footer {
   max-width: 900px;
   margin: auto;
   padding: 10px 20px;
 }
+header {
+  background-image: url('https://scontent-itm1-1.xx.fbcdn.net/v/t1.15752-9/610606614_912455091455760_5031405379910138985_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_ohc=fdMs182hxbMQ7kNvwFcM_7r&_nc_oc=AdnSHFXyfrypD4MGjPLdEBxlATciG_HarkTwMToiLtyajSKIODqEU293uM-4DX-9bXY&_nc_zt=23&_nc_ht=scontent-itm1-1.xx&oh=03_Q7cD4QGGdx_3zv-6pNoetxIcsoFLQCrP-dtYbzd_dHaiQ508NA&oe=698D3881'); /* Thay bằng đường dẫn ảnh thật */
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  padding: 40px 20px;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+
 
 /* --- 2. HEADER & LANG SWITCH --- */
 header h1 {
   font-size: 2rem;
-  color: #2e7d32;
+  color: white;
   text-align: center;
   margin-bottom: 20px;
 }
