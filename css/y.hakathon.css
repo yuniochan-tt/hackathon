@@ -1,4 +1,6 @@
 /* --- 1. RESET & BASE --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,20 +8,22 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: #f0f8f5;
   color: #333;
   line-height: 1.6;
   padding: 20px;
 }
 
- .content, .footer {
+.content, .footer {
   max-width: 900px;
   margin: auto;
   padding: 10px 20px;
 }
+
+/* --- 2. HEADER & LANG SWITCH --- */
 header {
-  background-image: url('https://scontent-itm1-1.xx.fbcdn.net/v/t1.15752-9/610606614_912455091455760_5031405379910138985_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_ohc=fdMs182hxbMQ7kNvwFcM_7r&_nc_oc=AdnSHFXyfrypD4MGjPLdEBxlATciG_HarkTwMToiLtyajSKIODqEU293uM-4DX-9bXY&_nc_zt=23&_nc_ht=scontent-itm1-1.xx&oh=03_Q7cD4QGGdx_3zv-6pNoetxIcsoFLQCrP-dtYbzd_dHaiQ508NA&oe=698D3881'); /* Thay bằng đường dẫn ảnh thật */
+  background-image: url('https://scontent-itm1-1.xx.fbcdn.net/v/t1.15752-9/610606614_912455091455760_5031405379910138985_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_ohc=fdMs182hxbMQ7kNvwFcM_7r&_nc_oc=AdnSHFXyfrypD4MGjPLdEBxlATciG_HarkTwMToiLtyajSKIODqEU293uM-4DX-9bXY&_nc_zt=23&_nc_ht=scontent-itm1-1.xx&oh=03_Q7cD4QGGdx_3zv-6pNoetxIcsoFLQCrP-dtYbzd_dHaiQ508NA&oe=698D3881');
   background-size: cover;
   background-position: center;
   border-radius: 12px;
@@ -28,8 +32,6 @@ header {
   text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
 }
 
-
-/* --- 2. HEADER & LANG SWITCH --- */
 header h1 {
   font-size: 2rem;
   color: white;
@@ -58,9 +60,7 @@ header h1 {
   background-color: #a5d6a7;
 }
 
-/* --- 3. VIDEO CARD (Sửa lỗi ảnh bẹp & chữ đè) --- */
-
-
+/* --- 3. VIDEO CARD --- */
 .video-card-container {
   width: 100%;
   max-width: 800px;
@@ -85,14 +85,14 @@ header h1 {
 .video-banner {
   position: relative;
   width: 100%;
-  height: 450px; /* Ép chiều cao cố định để không bị bẹp */
+  aspect-ratio: 16 / 9; /* 自動で比率を保つ */
   background-color: #000;
 }
 
 .video-thumbnail {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Giữ tỉ lệ ảnh đẹp */
+  object-fit: cover;
   display: block;
 }
 
@@ -100,9 +100,9 @@ header h1 {
   position: absolute;
   top: 0; left: 0; 
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.35); /* Làm tối nền để nổi chữ */
+  background: rgba(0, 0, 0, 0.35);
   display: flex;
-  flex-direction: column; /* Nút trên chữ dưới để không bị đè */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -121,7 +121,6 @@ header h1 {
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-/* Vẽ tam giác nút Play */
 .play-button-custom::after {
   content: "";
   width: 0; height: 0;
@@ -136,10 +135,34 @@ header h1 {
   font-weight: bold;
   font-size: 1.2rem;
   text-transform: uppercase;
-  text-shadow: 2px 2px 8px rgba(0,0,0,1); /* Đổ bóng mạnh để đọc được trên mọi nền ảnh */
+  text-shadow: 2px 2px 8px rgba(0,0,0,1);
 }
 
-/* --- 4. SECTIONS & MISSION --- */
+/* --- 4. PLAY-TEXT BUTTON --- */
+.play-text {
+  display: inline-block;
+  text-align: center;
+  padding: 12px 24px;
+  margin: 20px auto;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.play-text:hover {
+  background-color: #f1f8e9;
+  border-color: #81c784;
+  color: #2e7d32;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* --- 5. SECTIONS & MISSION --- */
 section {
   background-color: #ffffff;
   border-radius: 12px;
@@ -166,7 +189,7 @@ section {
   cursor: pointer;
 }
 
-/* --- 5. GALLERY (10 ẢNH) --- */
+/* --- 6. GALLERY --- */
 .image-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -190,7 +213,7 @@ section {
   margin-bottom: 10px;
 }
 
-/* --- 6. COMMENTS & FOOTER --- */
+/* --- 7. COMMENTS & FOOTER --- */
 .comment {
   background: #e8f5e9;
   padding: 15px;
@@ -212,8 +235,19 @@ section {
   margin-top: 40px;
 }
 
-/* Animation cho con dấu */
+/* --- 8. ANIMATION --- */
 @keyframes pop {
   0% { transform: scale(0.5); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: none;
 }
