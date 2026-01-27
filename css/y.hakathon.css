@@ -60,8 +60,7 @@ header h1 {
 
 /* --- 3. VIDEO CARD (Sửa lỗi ảnh bẹp & chữ đè) --- */
 
-.play-text { display: inline-block; /* ブロック化して装飾可能にする */ text-align: center; /* テキスト中央揃え */ border: 2px solid #ccc; /* 枠線 */ border-radius: 8px; /* 角を丸くする */ padding: 12px 24px; /* 内側の余白 */ margin: 20px auto; /* 上下に余白＋中央配置用 */ background-color: #fff; /* 背景色 */ box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 影で立体感 */ font-size: 16px; font-weight: bold; color: #333; cursor: pointer; }
-
+.play-text { font-size: 16px; font-weight: bold; color: #333; }
 .video-card-container {
   width: 100%;
   max-width: 800px;
